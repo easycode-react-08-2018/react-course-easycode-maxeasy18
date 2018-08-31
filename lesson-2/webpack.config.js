@@ -7,6 +7,7 @@ module.exports = {
 		publicPath: '/'
 	},
 	mode: 'development',
+	sourceMap: true,
 	module: {
 		rules: [
 			{
