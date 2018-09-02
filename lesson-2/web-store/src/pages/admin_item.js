@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
 
-
-export class CartGood extends Component {
+export class AdminItem extends Component {
     render() {
-        const good = this.props.good;
+        const item = this.props.item;
         return (
             <li className="list-group-item">
                 <img src="#" alt=""/>
                 <button className="admin-orders__link">
-                {good.title}
+                    {item.title}
                 </button>
-                <h2 className="float-right badge-light">✓</h2>
+                <h2 className="float-right btn-link">✎</h2>
                 <br />
-                <button className="btn btn-primary" onClick={this.props.removeGoodFromCart}>remove</button>
-
+                <button className="btn btn-primary" onClick={this.props.removeItem}>remove</button>                
             </li>
-            
         )
 
     }

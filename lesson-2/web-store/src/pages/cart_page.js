@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import {CartGood} from './cart_good';
+import {CartItem} from './cart_item';
 
 export class Card extends Component {
   render() { 
-    const goods = this.props.goods;
-    const returnListOfGoods = (goods) => {
-      return goods.map(( good ) => {
-        const removeGoodFromCart = () => {
-          this.props.removeGoodFromCart(good.id);
+    const items = this.props.items;
+    const returnListOfItems = (items) => {
+      return items.map(( item ) => {
+        const removeItemFromCart = () => {
+          this.props.removeItemFromCart(item.id);
         }
-        return <CartGood key={good.id} good={good} removeGoodFromCart={removeGoodFromCart} ></CartGood>
+        return <CartItem key={item.id} item={item} removeItemFromCart={removeItemFromCart} ></CartItem>
       });
     }
     const shipIt = () => {
-      this.props.removeGoodFromCart();
+      this.props.removeItemFromCart();
     }
     return (  
     <div className="container">
@@ -21,7 +21,7 @@ export class Card extends Component {
         <div className="col-8">
           <h1>Shopping Cart</h1>
           <ul className="list-group">
-            {returnListOfGoods(goods)}
+            {returnListOfItems(items)}
           </ul>
         </div>
         <div className="col-4">

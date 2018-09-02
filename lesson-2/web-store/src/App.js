@@ -11,7 +11,7 @@ class App extends Component {
     super();
     this.state = {
       activePage: "homePage",
-      goods: [
+      items: [
         {
           id: 1,
           title: "MacBook pro 2018",
@@ -32,18 +32,18 @@ class App extends Component {
     };
   }
 
-  addGoodToCart = (goodsId) => {
-    this.state.cart.push(goodsId);
+  addItemToCart = (ItemsId) => {
+    this.state.cart.push(ItemsId);
     this.setState({
       cart: this.state.cart
     });
   }
 
-  removeGoodFromCart = (goodsId) => {
+  removeItemFromCart = (itemsId) => {
     const stateCart = this.state.cart;
-    console.log(goodsId)
-    if( typeof(goodsId) !=='undefined'){
-      const toDelIndex = stateCart.indexOf(goodsId);
+    console.log(itemsId)
+    if( typeof(itemsId) !=='undefined'){
+      const toDelIndex = stateCart.indexOf(itemsId);
       if( toDelIndex !== -1){
         stateCart.splice(toDelIndex,1);
       }
@@ -57,9 +57,9 @@ class App extends Component {
     }
   }  
 
-  getGoodsInCart = () => {
-    const actualList = this.state.goods.filter((good) => {
-      if(this.state.cart.indexOf(good.id) === -1){
+  getItemsInCart = () => {
+    const actualList = this.state.items.filter((item) => {
+      if(this.state.cart.indexOf(item.id) === -1){
         return false;
       }
       return true;
@@ -67,33 +67,33 @@ class App extends Component {
     return actualList;    
   }
 
-  removeGood = (goodId) => {
-    const stateGoods = this.state.goods;
-    const newGoods = stateGoods.filter( good =>  {
-        if( good.id !== goodId){
+  removeItem = (itemId) => {
+    const stateItems = this.state.items;
+    const newItems = stateItems.filter( item =>  {
+        if( item.id !== itemId){
           return true;
         }
         return false;
     });
     this.setState({
-      goods: newGoods
+      items: newItems
     });     
   }
 
-  addGood = (title) => {
+  addItem = (title) => {
     const getMaxId = () => {
-      return this.state.goods.reduce( (acc,good) => {
-          acc = Math.max(acc, good.id);
+      return this.state.items.reduce( (acc, item) => {
+          acc = Math.max(acc, item.id);
           return acc;
       },0);
     }
-    this.state.goods.push({
+    this.state.items.push({
       title: title,
       text: "some text",
       id: getMaxId() + 1
     })
     this.setState({
-      goods: this.state.goods
+      items: this.state.items
     });     
   }
 
@@ -132,10 +132,10 @@ class App extends Component {
     if (activePage === "userPage") {
       return (
         <User
-          addGoodToCart={this.addGoodToCart}
+          addItemToCart={this.addItemToCart}
           changePageToHomePage={this.changePageToHomePage}
           changePageToCartPage={this.changePageToCartPage}
-          goods={this.state.goods}
+          items={this.state.items}
           cart={this.state.cart}
         />
       );
@@ -144,9 +144,9 @@ class App extends Component {
     if (activePage === "adminPage") {
       return (
         <Admin
-          addGood={this.addGood}
-          goods={this.state.goods}
-          removeGood={this.removeGood}
+          addItem={this.addItem}
+          items={this.state.items}
+          removeItem={this.removeItem}
           changePageToHomePage={this.changePageToHomePage}
           changePageToCartPage={this.changePageToCartPage}
         />
@@ -156,8 +156,8 @@ class App extends Component {
     if (activePage === "cartPage") {
       return (
         <Card 
-          goods={this.getGoodsInCart()} 
-          removeGoodFromCart={this.removeGoodFromCart} 
+          items={this.getItemsInCart()}
+          removeItemFromCart={this.removeItemFromCart}
           changePageToHomePage={this.changePageToHomePage} 
           changePageToUserPage={this.changePageToUserPage} 
           />

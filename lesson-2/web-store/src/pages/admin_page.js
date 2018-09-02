@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AdminGood} from './admin_good';
+import {AdminItem} from './admin_item';
 
 
 export class Admin extends Component {
@@ -8,25 +8,25 @@ export class Admin extends Component {
 
         this.state = {inputValue: ''};
         this.handleChange = this.handleChange.bind(this);
-        this.addGood = this.addGood.bind(this);
+        this.addItem = this.addItem.bind(this);
     }
 
     handleChange(event) {
         this.setState({inputValue: event.target.value});
     }  
 
-    addGood(){
-        this.props.addGood(this.state.inputValue);
+    addItem(){
+        this.props.addItem(this.state.inputValue);
     }
 
     render() {
-        const goods = this.props.goods;
-        const returnListOfGoods = (goods) => {
-          return goods.map(( good ) => {
-            const removeGood = () => {
-              this.props.removeGood(good.id);
+        const items = this.props.items;
+        const returnListOfItems = (items) => {
+          return items.map(( item ) => {
+            const removeItem = () => {
+              this.props.removeItem(item.id);
             }
-            return <AdminGood key={good.id} good={good} removeGood={removeGood}  ></AdminGood>
+            return <AdminItem key={item.id} item={item} removeItem={removeItem}  ></AdminItem>
           });
         }        
         return <div className="container flex-grow-1">
@@ -35,7 +35,7 @@ export class Admin extends Component {
                     <div className="admin-orders">
                         <h1>ADMIN PAGE</h1>
                         <ul className="list-group">
-                            {returnListOfGoods(goods)}
+                            {returnListOfItems(items)}
                         </ul>
                         <br/>
                         <div className="input-group mb-3">
@@ -49,7 +49,7 @@ export class Admin extends Component {
                                 placeholder="enter new name"
                                 onChange={this.handleChange}
                                 />
-                            <button className="btn btn-primary" onClick={this.addGood}>Add</button>
+                            <button className="btn btn-primary" onClick={this.addItem}>Add</button>
                         </div>
                     </div>
                 </div>

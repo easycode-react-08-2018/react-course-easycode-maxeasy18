@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import {ShopGood} from './shop_good';
+import {ShopItem} from './shop_item';
 
 export class User extends Component {
   render() { 
-    const goods = this.props.goods;
+    const items = this.props.items;
     const inCart = this.props.cart;
-    const returnListOfGoods = (goods) => {
-      return goods.map(( good ) => {
+    const returnListOfItems = (items) => {
+      return items.map((item ) => {
         let inBasket = false;
-        if(inCart.indexOf(good.id) !== -1){
+        if(inCart.indexOf(item.id) !== -1){
           inBasket = true;
         }
-        const addGoodToCart = () => {
-          this.props.addGoodToCart(good.id);
+        const addItemToCart = () => {
+          this.props.addItemToCart(item.id);
         }
-        return <ShopGood key={good.id} good={good} inBasket={inBasket} addGoodToCart={addGoodToCart} ></ShopGood>
+        return <ShopItem key={item.id} item={item} inBasket={inBasket} addItemToCart={addItemToCart} ></ShopItem>
       });
     }
     return (  
@@ -23,7 +23,7 @@ export class User extends Component {
           <div className="row">
             <div className="col-8">
               <div className="row">
-                {returnListOfGoods(goods)}
+                {returnListOfItems(items)}
               </div>
             </div>
             <div className="col-4">
