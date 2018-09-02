@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {ShopItem} from './shop_item';
+import {Logout} from './../components/shared/logout';
+import {Orders} from './../components/shared/orders_button.js';
+
 
 export class User extends Component {
-  render() { 
+  render() {
     const items = this.props.items;
     const inCart = this.props.cart;
     const returnListOfItems = (items) => {
@@ -17,7 +20,7 @@ export class User extends Component {
         return <ShopItem key={item.id} item={item} inBasket={inBasket} addItemToCart={addItemToCart} ></ShopItem>
       });
     }
-    return (  
+    return (
         <div className="container">
           <h1>USER PAGE</h1>
           <div className="row">
@@ -30,11 +33,10 @@ export class User extends Component {
               <div>
                 User
               </div>
-              <button className="btn btn-primary" onClick={this.props.changePageToCartPage}>
-                Orders
-              </button>              
-              <br />
-              <button onClick={this.props.changePageToHomePage}>User Logout</button>
+                <Orders changePageToCartPage={this.props.changePageToCartPage} ></Orders>
+
+                <br />
+                <Logout changePageToHomePage={this.props.changePageToHomePage}></Logout>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {AdminItem} from './admin_item';
+import {Orders} from './../components/shared/orders_button.js';
+import {Logout} from './../components/shared/logout';
 
 
 export class Admin extends Component {
@@ -57,11 +59,9 @@ export class Admin extends Component {
                     <div>
                         Admin
                     </div>
-                    <button className="btn btn-primary" onClick={this.props.changePageToCartPage}>
-                      Orders
-                    </button>
+                    <Orders changePageToCartPage={this.props.changePageToCartPage} ></Orders>
                     <br/>
-                    <button onClick={this.props.changePageToHomePage}>User Logout</button>
+                    <Logout changePageToHomePage={this.props.changePageToHomePage}></Logout>
                 </div>
             </div>
         </div>

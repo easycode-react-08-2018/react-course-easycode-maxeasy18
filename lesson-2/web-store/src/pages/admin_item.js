@@ -11,7 +11,7 @@ export class AdminItem extends Component {
                 </button>
                 <h2 className="float-right btn-link">✎</h2>
                 <br />
-                <button className="btn btn-primary" onClick={this.props.removeItem}>remove</button>                
+                <button className="btn btn-primary" onClick={this.props.removeItem}>remove</button>
             </li>
         )
 
