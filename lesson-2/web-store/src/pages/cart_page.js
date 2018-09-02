@@ -4,7 +4,6 @@ import {CartGood} from './cart_good';
 export class Card extends Component {
   render() { 
     const goods = this.props.goods;
-    console.log(goods);
     const returnListOfGoods = (goods) => {
       return goods.map(( good ) => {
         const removeGoodFromCart = () => {
@@ -12,6 +11,9 @@ export class Card extends Component {
         }
         return <CartGood key={good.id} good={good} removeGoodFromCart={removeGoodFromCart} ></CartGood>
       });
+    }
+    const shipIt = () => {
+      this.props.removeGoodFromCart();
     }
     return (  
     <div className="container">
@@ -34,7 +36,7 @@ export class Card extends Component {
       </div>
       <div className="row">
         <button className="btn btn-primary" onClick={this.props.changePageToUserPage}>to shop</button>
-        <button className="btn btn-primary">Ship it</button>
+        <button className="btn btn-primary" onClick={shipIt}>Ship it</button>
       </div>
     </div>
     )

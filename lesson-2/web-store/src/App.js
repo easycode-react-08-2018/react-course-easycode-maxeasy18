@@ -41,13 +41,20 @@ class App extends Component {
 
   removeGoodFromCart = (goodsId) => {
     const stateCart = this.state.cart;
-    const toDelIndex = stateCart.indexOf(goodsId);
-    if( toDelIndex !== -1){
-      stateCart.splice(toDelIndex,1);
+    console.log(goodsId)
+    if( typeof(goodsId) !=='undefined'){
+      const toDelIndex = stateCart.indexOf(goodsId);
+      if( toDelIndex !== -1){
+        stateCart.splice(toDelIndex,1);
+      }
+      this.setState({
+        cart: stateCart
+      });
+    }else{
+      this.setState({
+        cart: []
+      });
     }
-    this.setState({
-      cart: stateCart
-    });
   }  
 
   getGoodsInCart = () => {
@@ -60,6 +67,35 @@ class App extends Component {
     return actualList;    
   }
 
+  removeGood = (goodId) => {
+    const stateGoods = this.state.goods;
+    const newGoods = stateGoods.filter( good =>  {
+        if( good.id !== goodId){
+          return true;
+        }
+        return false;
+    });
+    this.setState({
+      goods: newGoods
+    });     
+  }
+
+  addGood = (title) => {
+    const getMaxId = () => {
+      return this.state.goods.reduce( (acc,good) => {
+          acc = Math.max(acc, good.id);
+          return acc;
+      },0);
+    }
+    this.state.goods.push({
+      title: title,
+      text: "some text",
+      id: getMaxId() + 1
+    })
+    this.setState({
+      goods: this.state.goods
+    });     
+  }
 
   changePageToUserPage = () => {
     this.setState({
@@ -108,6 +144,9 @@ class App extends Component {
     if (activePage === "adminPage") {
       return (
         <Admin
+          addGood={this.addGood}
+          goods={this.state.goods}
+          removeGood={this.removeGood}
           changePageToHomePage={this.changePageToHomePage}
           changePageToCartPage={this.changePageToCartPage}
         />

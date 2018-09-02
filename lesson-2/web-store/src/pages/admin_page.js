@@ -1,42 +1,55 @@
 import React, {Component} from 'react';
+import {AdminGood} from './admin_good';
+
 
 export class Admin extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {inputValue: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.addGood = this.addGood.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({inputValue: event.target.value});
+    }  
+
+    addGood(){
+        this.props.addGood(this.state.inputValue);
+    }
+
     render() {
+        const goods = this.props.goods;
+        const returnListOfGoods = (goods) => {
+          return goods.map(( good ) => {
+            const removeGood = () => {
+              this.props.removeGood(good.id);
+            }
+            return <AdminGood key={good.id} good={good} removeGood={removeGood}  ></AdminGood>
+          });
+        }        
         return <div className="container flex-grow-1">
             <div className="row">
                 <div className="col-8">
                     <div className="admin-orders">
                         <h1>ADMIN PAGE</h1>
                         <ul className="list-group">
-                            <li className="list-group-item">
-                                <img src="#" alt=""/>
-                                <button className="admin-orders__link">
-                                    MacBook pro 2018
-                                </button>
-                                <h2 className="float-right btn-link">✎</h2>
-                            </li>
-                            <li className="list-group-item">
-                                <img src="#" alt=""/>
-                                <button className="admin-orders__link">
-                                    Dell xs
-                                </button>
-                                <h2 className="float-right btn-link">✎</h2>
-                            </li>
-                            <li className="list-group-item">
-                                <img src="#" alt=""/>
-                                <button className="admin-orders__link">
-                                    Microsoft Surface
-                                </button>
-                                <h2 className="float-right btn-link">✎</h2>
-                            </li>
+                            {returnListOfGoods(goods)}
                         </ul>
                         <br/>
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                                 <span className="input-group-text" id="basic-addon1">@</span>
                             </div>
-                            <input type="text" className="form-control" placeholder="enter new name"/>
-                            <button className="btn btn-primary">Add</button>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                value={this.state.inputValue} 
+                                placeholder="enter new name"
+                                onChange={this.handleChange}
+                                />
+                            <button className="btn btn-primary" onClick={this.addGood}>Add</button>
                         </div>
                     </div>
                 </div>

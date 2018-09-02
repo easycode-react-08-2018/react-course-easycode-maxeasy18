@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 export class ShopGood extends Component {
     render() {
         const good = this.props.good;
-        console.log(this.props.inBasket);
         return (
             <div className="card">
                 <div className="card-body">
