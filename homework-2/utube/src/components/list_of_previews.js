@@ -9,7 +9,6 @@ const renderPreviews = (previews,activatePreview) => {
 
 export class PreviewList extends Component{
     render(){
-        console.log('render list')
         return (
 
             <ul className="col-md-4 list-group">
