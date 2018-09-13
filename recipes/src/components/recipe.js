@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 export class Recipe extends React.Component {
   createListOfIngridients(listOfIngridients){
@@ -7,7 +9,8 @@ export class Recipe extends React.Component {
     });
   }
   render(){
-    const recipe = this.props.recipe;
+    const {name,ingridients,id} = this.props.recipe;
+    console.log(id);
     return (
         <div className="recipe well">
           <div className="recipe-logo">
@@ -15,17 +18,17 @@ export class Recipe extends React.Component {
           </div>
           <div className="recipe-descr">
             <div className="recipe-title">
-            {recipe.title}
+            <b>{name}</b>
             </div>
             <div className="recipe-ingredients">
               <ul className="recipe-ingredient">
-                
-                {this.createListOfIngridients(recipe.ingridients)}
+
+                {this.createListOfIngridients(ingridients)}
               </ul>
             </div>
           </div>
           <div className="recipe-actions">
-            <button>Edit</button>
+            <button><Link to={"/editrecipe/" + id}>Edit</Link></button>
             <br />
             <button>remove</button>
           </div>
