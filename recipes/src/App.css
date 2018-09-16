@@ -63,8 +63,12 @@ header{
   list-style: none;
 }
 
-.recipe-image i{
-  font-size:60px;
+.recipe-image img, .recipe-logo img{
+  max-width: 200px;
+}
+.selected{
+  color:white;
+  background-color: mediumslateblue;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

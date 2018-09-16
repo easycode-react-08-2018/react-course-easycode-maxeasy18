@@ -1,23 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {Recipe} from './recipe';
+import {Link} from "react-router-dom";
 
 
 export class RecipesPage extends React.Component {
 
   returnListOfRecipes = () => {
+
       return this.props.recipes.map( (recipe) => {
-        return <Recipe key={recipe.id} recipe={recipe}  />
+        return <Recipe key={recipe.id} recipe={recipe} ingridients={this.props.ingridients}  />
       });
 
   }
 
   render(){
     return (
-      <div className="recipes-list">
-        {this.returnListOfRecipes()}
+      <React.Fragment>
+          <Link to={"/addrecipe/"}><button>Add Recipe</button></Link>
 
-      </div>      
+          <div className="recipes-list">
+            {this.returnListOfRecipes()}
+
+          </div>
+      </React.Fragment>
     )
   }
 }

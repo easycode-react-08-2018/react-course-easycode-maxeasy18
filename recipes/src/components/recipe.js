@@ -1,20 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 export class Recipe extends React.Component {
   createListOfIngridients(listOfIngridients){
     return listOfIngridients.map(( ingridient ) => {
-        return <li key={'ingr_' + ingridient.id + Math.random()}>{ingridient.name}</li>
+        const ingridientFromState = this.props.ingridients.find( (ingr) => {
+            return ingr.id === ingridient;
+        });
+        return <li key={ingridientFromState.id}>{ingridientFromState.name}</li>
     });
   }
   render(){
-    const {name,ingridients,id} = this.props.recipe;
-    console.log(id);
+      console.log(this.props.ingridients);
+
+      const {name,ingridients,id} = this.props.recipe;
     return (
         <div className="recipe well">
           <div className="recipe-logo">
-            <img src="" alt="logo" />
+              <img src="/img/party-dish.jpg" />
           </div>
           <div className="recipe-descr">
             <div className="recipe-title">
