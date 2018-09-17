@@ -1,5 +1,13 @@
 import React from 'react';
 import {Ingridient} from "./ingridient";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
+
 
 
 export class RecipeEdit extends React.Component {
@@ -8,7 +16,8 @@ export class RecipeEdit extends React.Component {
         const {id,name,ingridients} = props.recipe || {
             id: null,
             name: '',
-            ingridients: null
+            ingridients: null,
+            redirectAfterAdd : false
         };
         const ingridientsAll = props.ingridients.map( (ingridient) => {
             let inRecipe;
@@ -34,6 +43,9 @@ export class RecipeEdit extends React.Component {
             name: event.target.value
         })
     }
+
+
+    
 
     selectIngridient = (id) => {
         let newList;
@@ -95,9 +107,15 @@ export class RecipeEdit extends React.Component {
 
         }
         this.props.saveRecipe(recipeChanged);
+        this.setState({
+            redirectAfterAdd: true
+        })
     }
 
     render(){
+        if(this.state.redirectAfterAdd){
+            return <Redirect to="/recipes" />;
+        }        
         return (
             <div className="recipes-edit">
                 <div className="recipes-edit-child recipe-image">

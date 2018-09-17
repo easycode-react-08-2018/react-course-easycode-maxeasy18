@@ -12,8 +12,6 @@ export class Recipe extends React.Component {
     });
   }
   render(){
-      console.log(this.props.ingridients);
-
       const {name,ingridients,id} = this.props.recipe;
     return (
         <div className="recipe well">
@@ -34,7 +32,7 @@ export class Recipe extends React.Component {
           <div className="recipe-actions">
             <button><Link to={"/editrecipe/" + id}>Edit</Link></button>
             <br />
-            <button>remove</button>
+            <button onClick={() => {this.props.deleteRecipe(id)}}>remove</button>
           </div>
         </div>
 

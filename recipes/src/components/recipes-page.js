@@ -8,7 +8,7 @@ export class RecipesPage extends React.Component {
   returnListOfRecipes = () => {
 
       return this.props.recipes.map( (recipe) => {
-        return <Recipe key={recipe.id} recipe={recipe} ingridients={this.props.ingridients}  />
+        return <Recipe key={recipe.id} recipe={recipe} ingridients={this.props.ingridients} deleteRecipe={this.props.deleteRecipe}  />
       });
 
   }

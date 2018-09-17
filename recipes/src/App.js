@@ -59,12 +59,13 @@ class App extends Component {
         this.state = {
             recipes : recipes,
             ingridients : ingridients,
+            
         }
     }
 
     renderRecipes = () => {
         // console.log(recipes);
-        return <RecipesPage recipes={this.state.recipes} isAuthed={true} ingridients={this.state.ingridients}/>
+        return <RecipesPage recipes={this.state.recipes} isAuthed={true} ingridients={this.state.ingridients} deleteRecipe={this.deleteRecipe}/>
     }
 
     getRecipe(id){
@@ -96,11 +97,22 @@ class App extends Component {
         }
         this.setState({
             recipes: this.state.recipes,
+            redirectAfterAdd : true
         });
-        this.props.history.push('/dashboard')
+       
 
     }
+    deleteRecipe = (id) => {
+        console.log(id);
+        const newListOfRecipes = this.state.recipes.filter( (recipe) => {
+            return recipe.id !==id;
+        });
+        this.setState({
+            recipes: newListOfRecipes
+        });
+    }
     render() {
+
         return (
             <Router>
                 <div className="container">
