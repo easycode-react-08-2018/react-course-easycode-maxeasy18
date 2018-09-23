@@ -42,7 +42,12 @@ class SignInComponent extends React.Component {
           error: <LoginError message={response.message} />
         })
       }else if(response.status === "success"){
-        this.props.activateToken(response.message.token);
+        const {token} = response.message;
+        console.log(response.message);
+        const user =  response.message.user.name;
+        console.log(user);
+        console.log({token,userName:user});
+        this.props.activateToken({token,userName:user});
       }
     });    
   }

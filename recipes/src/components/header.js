@@ -7,16 +7,16 @@ import {activateToken} from "../actions/activate-token";
 
 class HeaderComponent extends React.Component {
 	render(){
-		const isSigned = this.props.token;
+		const {token,userName} = this.props;
 		return (
 			<header className="container"> 
 				<div className="user-login">
-					<div>welcome, guest</div>
+					<div>welcome, {userName}</div>
 				</div>		
-				{isSigned && <HeaderLink linkHref={"/signout"} linkText={"Sign Out"}/>}
-				{!isSigned && <HeaderLink linkHref={"/signup"} linkText={"Sign Up"}/>}
-                {!isSigned && <HeaderLink linkHref={"/signin"} linkText={"Sign In"}/>}
-                {isSigned && <HeaderLink linkHref={"/recipes"} linkText={"Recipes"}/>}
+				{token && <HeaderLink linkHref={"/signout"} linkText={"Sign Out"}/>}
+				{!token && <HeaderLink linkHref={"/signup"} linkText={"Sign Up"}/>}
+                {!token && <HeaderLink linkHref={"/signin"} linkText={"Sign In"}/>}
+                {token && <HeaderLink linkHref={"/recipes"} linkText={"Recipes"}/>}
 				<div className="logo">
 					<img src={logo} className="App-logo" alt="logo" />
 				</div>
@@ -25,9 +25,10 @@ class HeaderComponent extends React.Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+	const {token,userName} = state;
     return {
-        token : state.token
+        token,userName
     }
 }
 

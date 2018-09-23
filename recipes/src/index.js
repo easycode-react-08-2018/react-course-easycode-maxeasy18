@@ -7,18 +7,23 @@ import './index.css';
 
 import App from './App';
 
-const initialState = {};
+const initialState = {
+    token: null,
+    userName: 'Guest'
+};
 
 const reducer = ( state = initialState, action) => {
     switch (action.type){
         case 'ACTIVATE_TOKEN':{
             return {
-                token : action.payload
+                token : action.payload.token,
+                userName : action.payload.userName,
             }
         }
         default:{
             return {
-                token : state.token
+                token : state.token,
+                userName: state.userName
             }
         }
     }

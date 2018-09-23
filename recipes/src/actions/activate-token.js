@@ -1,6 +1,9 @@
-export const activateToken = (token) => {
+export const activateToken = (userInfo) => {
     return {
         type: 'ACTIVATE_TOKEN',
-        payload : token
+        payload : {
+            token : userInfo.token,
+            userName : userInfo.userName
+        }
     }
 }
