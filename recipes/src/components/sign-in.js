@@ -1,13 +1,16 @@
 import React from 'react';
+import {LoginError} from './login-error';
+import {connect} from 'react-redux';
+import {activateToken} from "../actions/activate-token";
 
-export class SignIn extends React.Component {
-  constructor(){
-    super();
+class SignInComponent extends React.Component {
+  constructor(props){
+    super(props);
     this.state = {
       userName: null,
-      password: null
+      password: null,
+      error: null
     }
-
   }
 
   updateUserName = (event) =>{
@@ -22,22 +25,32 @@ export class SignIn extends React.Component {
     })
   }  
 
-  signIn(event){
+  signIn = (event) => {
     event.preventDefault();
-    const url = 'https://gist.github.com/OlegLustenko/login'
+    const url = 'https://flatearth-api.herokuapp.com/api/v1/auth/login'
     fetch(url, {
       method: "POST",
-      body:   { user:"sa", password: "admin" }
-    }).then((responce) => {
-      responce.json();
-    }).then( (responce) => {
-      console.log(responce);
+      headers: {
+        'Content-Type': 'application/json'
+      },      
+      body:   JSON.stringify({ user:this.state.userName, password: this.state.password })
+    }).then((response) => {
+      return response.json();
+    }).then( (response) => {
+      if(response.status === "error"){
+        this.setState({
+          error: <LoginError message={response.message} />
+        })
+      }else if(response.status === "success"){
+        this.props.activateToken(response.message.token);
+      }
     });    
   }
   render(){
+    console.log(this.props.token);
     return (
-      
       <div className="form well">
+        {this.state.error}
         <form className="form-horizontal">
           <div className="form-group">
             <label htmlFor="inputEmail3" className="col-sm-2 control-label">Username</label>
@@ -55,7 +68,7 @@ export class SignIn extends React.Component {
             <div className="col-sm-offset-2 col-sm-10">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" /> Remember me
+                  <input type="checkbox" /> Remember me 3
                 </label>
               </div>
             </div>
@@ -66,10 +79,18 @@ export class SignIn extends React.Component {
             </div>
           </div>
         </form>
-
-      </div>
-          
+      </div>          
 
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    token : state.token
+  }
+}
+const mapDispatchToProps = {
+  activateToken
+}
+
+export const SignIn = connect(mapStateToProps,mapDispatchToProps)(SignInComponent);

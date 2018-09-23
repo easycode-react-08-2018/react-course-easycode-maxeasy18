@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Redirect } from "react-router";
 import './App.css';
 
 import {Header} from './components/header';
-import {SignIn} from './components/signin';
+import {SignIn} from './components/sign-in';
+import {SignUp} from './components/sign-up';
 import {RecipesPage} from './components/recipes-page';
 import {RecipeEdit} from './components/recipe-edit';
 
@@ -118,6 +118,7 @@ class App extends Component {
                 <div className="container">
                     <Header />
                     <Route path="/signin" component={SignIn} />
+                    <Route path="/signup" component={SignUp} />
                     <Route path="/recipes" render={this.renderRecipes} />
                     <Route path="/editrecipe/:id" render={(match) =>{
                         return <RecipeEdit saveRecipe={this.saveRecipe} ingridients={ingridients} recipe={this.getRecipe(match.match.params.id)}  />
