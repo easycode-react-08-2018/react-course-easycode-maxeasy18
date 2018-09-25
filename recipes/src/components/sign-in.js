@@ -1,7 +1,8 @@
 import React from 'react';
-import {LoginError} from './login-error';
+import {SignMessage} from './sign-message';
 import {connect} from 'react-redux';
 import {activateToken} from "../actions/activate-token";
+import {Redirect} from "react-router-dom";
 
 class SignInComponent extends React.Component {
   constructor(props){
@@ -9,7 +10,8 @@ class SignInComponent extends React.Component {
     this.state = {
       userName: null,
       password: null,
-      error: null
+      error: null,
+      signedIn : false
     }
   }
 
@@ -23,7 +25,7 @@ class SignInComponent extends React.Component {
     this.setState({
       password: event.target.value
     })
-  }  
+  }
 
   signIn = (event) => {
     event.preventDefault();
@@ -32,30 +34,33 @@ class SignInComponent extends React.Component {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
-      },      
+      },
       body:   JSON.stringify({ user:this.state.userName, password: this.state.password })
     }).then((response) => {
       return response.json();
     }).then( (response) => {
       if(response.status === "error"){
         this.setState({
-          error: <LoginError message={response.message} />
+          error: <SignMessage className={"alert alert-warning"} message={response.message} />
         })
       }else if(response.status === "success"){
         const {token} = response.message;
-        console.log(response.message);
         const user =  response.message.user.name;
-        console.log(user);
-        console.log({token,userName:user});
         this.props.activateToken({token,userName:user});
+        this.setState({
+            signedIn : true
+        })
       }
-    });    
+    });
   }
   render(){
-    console.log(this.props.token);
-    return (
+      if(this.state.signedIn){
+          return <Redirect to="/recipes" />;
+      }
+      return (
       <div className="form well">
         {this.state.error}
+          {this.props.signUpMessage &&  <SignMessage className={"alert alert-warning"} message={this.props.signUpMessage} />}
         <form className="form-horizontal">
           <div className="form-group">
             <label htmlFor="inputEmail3" className="col-sm-2 control-label">Username</label>
@@ -84,14 +89,15 @@ class SignInComponent extends React.Component {
             </div>
           </div>
         </form>
-      </div>          
+      </div>
 
     )
   }
 }
 const mapStateToProps = state => {
   return {
-    token : state.token
+    token : state.token,
+    signUpMessage : state.signUpMessage
   }
 }
 const mapDispatchToProps = {

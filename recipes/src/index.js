@@ -9,7 +9,8 @@ import App from './App';
 
 const initialState = {
     token: null,
-    userName: 'Guest'
+    userName: 'Guest',
+    signUpMessage : null
 };
 
 const reducer = ( state = initialState, action) => {
@@ -18,6 +19,17 @@ const reducer = ( state = initialState, action) => {
             return {
                 token : action.payload.token,
                 userName : action.payload.userName,
+            }
+        }
+        case 'SHOW_SIGN_UP_MESSAGE':{
+            return {
+                signUpMessage: action.payload.signUpMessage
+            }
+        }
+        case 'SIGN_OUT':{
+            return {
+                token : null,
+                userName : 'Guest'
             }
         }
         default:{

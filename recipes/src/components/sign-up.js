@@ -1,11 +1,12 @@
 import React from 'react';
-import {LoginError} from './login-error';
-import {
-  Redirect
-} from "react-router-dom";
+import {SignMessage} from './sign-message';
+import {Redirect} from "react-router-dom";
+import {activateToken} from "../actions/activate-token";
+import connect from "react-redux/es/connect/connect";
+import {showSignUpMessage} from "../actions/show-sign-up-message";
 
 
-export class SignUp extends React.Component {
+export class SignUpComponent extends React.Component {
   constructor(){
     super();
     this.state = {
@@ -48,7 +49,7 @@ export class SignUp extends React.Component {
     }
     if(!this.state.user || !this.state.email || !this.state.password){
       this.setState({
-        error : <LoginError message={'One of the fields is empty'} />
+        error : <SignMessage message={'One of the fields is empty'} />
       });
       return;
     }
@@ -66,7 +67,7 @@ export class SignUp extends React.Component {
       // const res = JSON.parse(responce);
       if(responce.status === "error"){
         this.setState({
-          error: <LoginError message={responce.message} />
+          error: <SignMessage message={responce.message} />
         })
       }
       if(responce.status === "success"){
@@ -83,7 +84,7 @@ export class SignUp extends React.Component {
   checkRePass = () => {
     if(this.state.rePassword !== this.state.password){
       this.setState({
-          error: <LoginError message={'Password mismatch'} />
+          error: <SignMessage message={'Password mismatch'} />
       });
       return false;
 
@@ -91,6 +92,9 @@ export class SignUp extends React.Component {
       this.setState({
         error: null
       });
+
+      this.props.showSignUpMessage(`Congratulations! You've just entered to beautiful world.
+      Enter name you've jusr registered and enjoy our recipies.`)
       return true;
     }
   }
@@ -147,3 +151,13 @@ export class SignUp extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+    return {
+    }
+}
+const mapDispatchToProps = {
+    showSignUpMessage
+}
+
+export const SignUp = connect(mapStateToProps,mapDispatchToProps)(SignUpComponent);

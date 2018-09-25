@@ -5,6 +5,7 @@ import './App.css';
 import {Header} from './components/header';
 import {SignIn} from './components/sign-in';
 import {SignUp} from './components/sign-up';
+import {SignOut} from './components/sign-out.js';
 import {RecipesPage} from './components/recipes-page';
 import {RecipeEdit} from './components/recipe-edit';
 
@@ -119,6 +120,7 @@ class App extends Component {
                     <Header />
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
+                    <Route path="/signout" component={SignOut} />
                     <Route path="/recipes" render={this.renderRecipes} />
                     <Route path="/editrecipe/:id" render={(match) =>{
                         return <RecipeEdit saveRecipe={this.saveRecipe} ingridients={ingridients} recipe={this.getRecipe(match.match.params.id)}  />

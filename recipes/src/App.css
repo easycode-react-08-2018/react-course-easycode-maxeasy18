@@ -34,6 +34,10 @@ header{
   align-items: center;
 }
 
+.user-login, .links{
+  margin:0 5px;
+}
+
 .recipe{
   display: flex;
   justify-content:space-between;
